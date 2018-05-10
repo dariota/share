@@ -85,6 +85,9 @@ function get_config() {
 			\?)
 				ERR="${ERR} - Unknown flag -$opt.\n"
 				;;
+			:)
+				ERR="${ERR} - Option -$OPTARG requires an argument.\n"
+				;;
 		esac
 	done
 
