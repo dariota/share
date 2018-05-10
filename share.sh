@@ -7,7 +7,7 @@ REMOTE_PATH=""
 REMOTE_NAME=""
 SAFE=""
 
-function get_config() {
+function get_options() {
 	if [ -f ~/.config/share/config ]
 	then
 		REMOTE_HOST=$(config_get REMOTE)
@@ -125,5 +125,22 @@ function validate_options() {
 	fi
 }
 
-get_config $@
+function set_up_name() {
+	shift $(( $OPTIND - 1 ))
+	LOCAL_NAME="$1"
+
+	if [ -z "$LOCAL_NAME" ]
+	then
+		echo "File name to upload must be specified."
+		exit 3
+	fi
+
+	if [ -z "$REMOTE_NAME" ]
+	then
+		REMOTE_NAME="$LOCAL_NAME"
+	fi
+}
+
+get_options $@
 validate_options
+set_up_name $@
