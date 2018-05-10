@@ -47,7 +47,7 @@ function configure() {
 	fi
 
 	mkdir -p ~/.config/share/
-	printf -- "REMOTE_HOST=%s\nREMOTE_PATH=%s\nSAFE=%s" "$HOST" "$FILE_PATH" "$SAFE" > ~/.config/share/config
+	printf -- "REMOTE_HOST=%s\nREMOTE_PATH=%s\nSAFE=%s\n" "$HOST" "$FILE_PATH" "$SAFE" > ~/.config/share/config
 }
 
 function check_configure() {
