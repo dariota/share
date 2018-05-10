@@ -33,7 +33,7 @@ function get_config() {
 				elif [ "$SPEC_HOST" = "y" ]
 				then
 					SPEC_HOST="err"
-					ERR="${ERR}Host param must be specified only once.\n"
+					ERR="${ERR} - Host param must be specified only once.\n"
 				fi
 				;;
 			p)
@@ -44,7 +44,7 @@ function get_config() {
 				elif [ "$SPEC_PATH" = "y" ]
 				then
 					SPEC_PATH="err"
-					ERR="${ERR}Path param must be specified only once.\n"
+					ERR="${ERR} - Path param must be specified only once.\n"
 				fi
 				;;
 			n)
@@ -55,7 +55,7 @@ function get_config() {
 				elif [ "$SPEC_NAME" = "y" ]
 				then
 					SPEC_NAME="err"
-					ERR="${ERR}Remote name must be specified only once.\n"
+					ERR="${ERR} - Remote name must be specified only once.\n"
 				fi
 				;;
 			u)
@@ -67,7 +67,7 @@ function get_config() {
 				then
 					SPEC_SAFE="err"
 					SPEC_UNSAFE="err"
-					ERR="${ERR}Only one of safe or unsafe flags can be specified.\n"
+					ERR="${ERR} - Only one of safe or unsafe flags can be specified.\n"
 				fi
 				;;
 			s)
@@ -79,11 +79,11 @@ function get_config() {
 				then
 					SPEC_SAFE="err"
 					SPEC_UNSAFE="err"
-					ERR="${ERR}Only one of safe or unsafe flags can be specified.\n"
+					ERR="${ERR} - Only one of safe or unsafe flags can be specified.\n"
 				fi
 				;;
 			\?)
-				ERR="${ERR}Unknown flag -$opt.\n"
+				ERR="${ERR} - Unknown flag -$opt.\n"
 				;;
 		esac
 	done
