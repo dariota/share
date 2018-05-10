@@ -7,11 +7,61 @@ REMOTE_PATH=""
 REMOTE_NAME=""
 SAFE=""
 
+function configure() {
+	HOST=""
+	FILE_PATH=""
+	SAFE=""
+
+	while [ -z "$HOST" ]
+	do
+		echo "Enter a non-empty hostname to use by default. This may be a fully qualified name, or a hostname as specified in your ssh config. This hostname will not undergo any validation."
+		read -r HOST
+	done
+	echo ""
+
+	while [ -z "$FILE_PATH" ]
+	do
+		echo "Enter the remote file path to use by default, without a trailing /. This can include characters such as ~, which will be interpreted on the remote. This path will not undergo any validation."
+		read -r FILE_PATH
+	done
+	echo ""
+
+	while ! [[ "$SAFE" =~ ^[yYnN]$ ]]
+	do
+		echo "Enable safety by default? [y/n]"
+		read -r SAFE
+	done
+
+	if [[ "$SAFE" =~ ^[nN]$ ]]
+	then
+		SAFE="NO"
+	else
+		SAFE="YES"
+	fi
+
+	mkdir -p ~/.config/share/
+	printf -- "REMOTE_HOST=%s\nREMOTE_PATH=%s\nSAFE=%s" "$HOST" "$FILE_PATH" "$SAFE" > ~/.config/share/config
+}
+
+function check_configure() {
+	while getopts ":c" opt
+	do
+		case $opt in
+			c)
+				configure
+				exit 0
+				;;
+		esac
+	done
+
+	OPTIND=1
+}
+
 function get_options() {
 	if [ -f ~/.config/share/config ]
 	then
-		REMOTE_HOST=$(config_get REMOTE)
-		REMOTE_PATH=$(config_get PATH)
+		REMOTE_HOST=$(config_get REMOTE_HOST)
+		REMOTE_PATH=$(config_get REMOTE_PATH)
 		SAFE=$(config_get SAFE)
 	fi
 
@@ -152,6 +202,7 @@ function safety_check() {
 	fi
 }
 
+check_configure $@
 get_options $@
 validate_options
 set_up_name $@
