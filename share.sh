@@ -83,7 +83,7 @@ function get_config() {
 				fi
 				;;
 			\?)
-				ERR="${ERR} - Unknown flag -$opt.\n"
+				ERR="${ERR} - Unknown flag -$OPTARG.\n"
 				;;
 			:)
 				ERR="${ERR} - Option -$OPTARG requires an argument.\n"
