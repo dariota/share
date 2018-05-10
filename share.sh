@@ -96,4 +96,31 @@ function get_config() {
 	fi
 }
 
+function validate_options() {
+	ERR=""
+
+	if [ -z "$REMOTE_HOST" ]
+	then
+		ERR="${ERR} - Host must be supplied in config or options.\n"
+	fi
+
+	if [ -z "$REMOTE_PATH" ]
+	then
+		ERR="${ERR} - Path must be supplied in config or options.\n"
+	fi
+
+	if [ "$SAFE" != "YES" ] && [ "$SAFE" != "NO" ]
+	then
+		ERR="${ERR} - Safety setting must be supplied in config or options.\n"
+	fi
+
+	if [ -n "$ERR" ]
+	then
+		echo "Errors were encountered validating options."
+		echo -e "$ERR"
+		exit 2
+	fi
+}
+
 get_config $@
+validate_options
