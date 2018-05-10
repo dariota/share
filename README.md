@@ -2,9 +2,13 @@
 
 A CLI tool to simply upload a given file to some host, relying on scp. For ease of use, setting up an ssh config with a key auth for that host is strongly recommended.
 
-## Usage
+Note `share` was made without too much care and in a short amount of time, so if you (or someone else) fiddles with the config in just the right (wrong?) way, things might break badly. Exercise caution.
 
-None of the following usage is currently implemented and is currently purely aspirational.
+## Installion
+
+Assuming `/usr/local/sbin` is in your PATH, copy `share` to `/usr/local/sbin`.
+
+## Usage
 
 ### Configure share for use
 
