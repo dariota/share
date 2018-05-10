@@ -207,3 +207,5 @@ get_options $@
 validate_options
 set_up_name $@
 safety_check
+
+scp "$LOCAL_NAME" "$REMOTE_HOST:$REMOTE_PATH/$REMOTE_NAME"
