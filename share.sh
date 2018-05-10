@@ -141,6 +141,18 @@ function set_up_name() {
 	fi
 }
 
+function safety_check() {
+	if [ "$SAFE" = "YES" ]
+	then
+		if ssh $REMOTE_HOST test -f $REMOTE_PATH/$REMOTE_NAME
+		then
+			echo "Safety check failed - remote file exists."
+			exit 4
+		fi
+	fi
+}
+
 get_options $@
 validate_options
 set_up_name $@
+safety_check
