@@ -194,7 +194,7 @@ function set_up_name() {
 
 	if [ -z "$REMOTE_NAME" ]
 	then
-		REMOTE_NAME="$LOCAL_NAME"
+		REMOTE_NAME=$(basename "$LOCAL_NAME")
 	fi
 }
 
