@@ -209,10 +209,10 @@ function safety_check() {
 	fi
 }
 
-check_configure $@
-get_options $@
+check_configure "$@"
+get_options "$@"
 validate_options
-set_up_name $@
+set_up_name "$@"
 safety_check
 
 scp "$LOCAL_NAME" "$REMOTE_HOST:$REMOTE_PATH/$REMOTE_NAME"
