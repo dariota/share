@@ -13,11 +13,13 @@ REMOTE_HOST=""
 REMOTE_PATH=""
 REMOTE_NAME=""
 SAFE=""
+URL=""
 
 function configure() {
 	HOST=""
 	FILE_PATH=""
 	SAFE=""
+	LINK=""
 
 	while [ -z "$HOST" ]
 	do
@@ -45,9 +47,13 @@ function configure() {
 	else
 		SAFE="YES"
 	fi
+	echo ""
+
+	echo "Enter the base URL the image will be shown on (without a trailing slash), or an empty line to disable showing the link. This url will not undergo any validation."
+	read -r LINK
 
 	mkdir -p ~/.config/share/
-	printf -- "REMOTE_HOST=%s\nREMOTE_PATH=%s\nSAFE=%s\n" "$HOST" "$FILE_PATH" "$SAFE" > ~/.config/share/config
+	printf -- "REMOTE_HOST=%s\nREMOTE_PATH=%s\nSAFE=%s\nURL=%s\n" "$HOST" "$FILE_PATH" "$SAFE" "$LINK" > ~/.config/share/config
 }
 
 function check_configure() {
@@ -70,6 +76,7 @@ function get_options() {
 		REMOTE_HOST=$(config_get REMOTE_HOST)
 		REMOTE_PATH=$(config_get REMOTE_PATH)
 		SAFE=$(config_get SAFE)
+		URL=$(config_get URL)
 	fi
 
 	SPEC_HOST=""
@@ -209,6 +216,13 @@ function safety_check() {
 	fi
 }
 
+function show_url() {
+	if ! [ -z "$URL" ]
+	then
+		echo -n "$URL/$REMOTE_NAME"
+	fi
+}
+
 check_configure "$@"
 get_options "$@"
 validate_options
@@ -216,3 +230,5 @@ set_up_name "$@"
 safety_check
 
 scp "$LOCAL_NAME" "$REMOTE_HOST:$REMOTE_PATH/$REMOTE_NAME"
+
+show_url
